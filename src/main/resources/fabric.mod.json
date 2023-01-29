@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "dash-loading-screen",
+	"version": "${version}",
+	"name": "Dash Loading Screen",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Creepercdn"
+	],
+	"contact": {
+		"sources": "https://github.com/Creepercdn/Dash-Loading-Screen"
+	},
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			"sh.creepercdn.dashloadingscreen.DashLoadingScreen"
+		]
+	},
+	"mixins": [
+		"dash-loading-screen.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.13",
+		"minecraft": "~1.18.2",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
