@@ -23,8 +23,10 @@ import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 import java.io.Closeable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Objects;
+import java.util.Random;
 
 public class DashScreen extends Screen {
     private static final Color FAILED_COLOR = new Color(255, 75, 69);
@@ -80,31 +82,31 @@ public class DashScreen extends Screen {
     }
 
     private void updateConfig() {
-        this.padding = 10;
-        this.debug = false;
-        this.progressBarHeight = 2;
-        this.lineSpeedDifference = 4.0f;
-        int lineAmount = 200;
+        final ModConfig config = DashLoadingScreenMod.config;
+        ColorUtils.loadConfig(config);
+
+        this.padding = config.paddingSize;
+        this.debug = config.debug;
+        this.progressBarHeight = config.progressBarHeight;
+        this.lineSpeedDifference = config.line.lineSpeedDifference;
+        int lineAmount = config.line.lineAmount;
 
         // lines
         this.weight = 0;
         this.lineColorSelectors.clear();
-        Map.of(
-                "base2", 1000,
-                "blue", 50,
-                "red", 1).forEach((s, integer) -> {
+        config.color.lineColors.forEach((s, integer) -> {
             this.weight += integer;
             this.lineColorSelectors.add(Pair.of(ColorUtils.parseColor(s), integer));
         });
 
         UIDrawer.GradientOrientation lineOrientation = null;
 
-        final String lineDirection = "LEFT";
+        final ModConfig.Direction lineDirection = config.line.lineDirection;
         switch (lineDirection) {
-            case "UP" -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_TOP;
-            case "LEFT" -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_LEFT;
-            case "RIGHT" -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_RIGHT;
-            case "DOWN" -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_DOWN;
+            case UP -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_TOP;
+            case LEFT -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_LEFT;
+            case RIGHT -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_RIGHT;
+            case DOWN -> lineOrientation = UIDrawer.GradientOrientation.GRADIENT_DOWN;
         }
 
         if (lineAmount > this.lines.size()) {
@@ -119,10 +121,10 @@ public class DashScreen extends Screen {
         }
 
         for (Line line : this.lines) {
-            line.speed = 2.0f;
-            line.width = 100;
-            final int bound = 10 - 4;
-            line.height = 4 + (bound > 0 ? this.random.nextInt(bound) : 0);
+            line.speed = config.line.lineSpeed;
+            line.width = config.line.lineWidth;
+            final int bound = config.line.lineMaxHeight - config.line.lineMinHeight;
+            line.height = config.line.lineMinHeight + (bound > 0 ? this.random.nextInt(bound) : 0);
             line.orientation = lineOrientation;
             line.updateStep();
         }
@@ -205,7 +207,7 @@ public class DashScreen extends Screen {
         this.drawer.drawText(UIDrawer.TextOrientation.TEXT_LEFT, task, ColorUtils.TEXT_COLOR, this.padding, barY - this.padding); // current task
 
         // fun fact
-        this.drawer.drawText(UIDrawer.TextOrientation.TEXT_LEFT, this.fact, ColorUtils.TEXT_COLOR, this.padding, this.padding + getTextRenderer().fontHeight);
+        this.drawer.drawText(UIDrawer.TextOrientation.TEXT_LEFT, this.fact, ColorUtils.TEXT_COLOR, this.padding, this.padding+getTextRenderer().fontHeight);
         super.render(matrices, mouseX, mouseY, delta);
     }
 

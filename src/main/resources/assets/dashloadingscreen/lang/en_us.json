@@ -1,0 +1,21 @@
+{
+  "text.autoconfig.dash-loading-screen.title": "Dash Loading Screen Config",
+  "text.autoconfig.dash-loading-screen.option.paddingSize": "Padding size",
+  "text.autoconfig.dash-loading-screen.option.debug": "Debug mode",
+  "text.autoconfig.dash-loading-screen.option.progressBarHeight": "Progress Bar height",
+
+  "text.autoconfig.dash-loading-screen.option.line": "Line",
+  "text.autoconfig.dash-loading-screen.option.line.lineSpeedDifference": "Line speed difference",
+  "text.autoconfig.dash-loading-screen.option.line.lineAmount": "Line amount",
+  "text.autoconfig.dash-loading-screen.option.line.lineDirection": "Line direction",
+  "text.autoconfig.dash-loading-screen.option.line.lineWidth": "Line width",
+  "text.autoconfig.dash-loading-screen.option.line.lineMinHeight": "Line minimum height",
+  "text.autoconfig.dash-loading-screen.option.line.lineMaxHeight": "Line maximum height",
+  "text.autoconfig.dash-loading-screen.option.line.lineSpeed": "Line speed",
+
+  "text.autoconfig.dash-loading-screen.option.color": "Color",
+  "text.autoconfig.dash-loading-screen.option.color.progressColors": "Progress bar colors",
+  "text.autoconfig.dash-loading-screen.option.color.backgroundColor": "Background color",
+  "text.autoconfig.dash-loading-screen.option.color.foregroundColor": "Foreground color",
+  "text.autoconfig.dash-loading-screen.option.color.progressTrackColor": "Progress track color"
+}

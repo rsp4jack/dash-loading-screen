@@ -3,35 +3,34 @@ package sh.creepercdn.dashloadingscreen;
 // https://github.com/TeamQuantumFusion/DashLoader/blob/fabric-1.18/src/main/java/dev/quantumfusion/dashloader/client/UIColors.java
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ColorUtils {
-    public final static Color BACKGROUND_COLOR = Color.decode("#221f22"); // base1
-    public final static Color PROGRESS_LANE_COLOR = Color.decode("#19181a"); // base0
-    public final static Color TEXT_COLOR = Color.decode("#fcfcfa"); // text
+    public static Color BACKGROUND_COLOR = null;
+    public static Color PROGRESS_LANE_COLOR = null;
+    public static Color TEXT_COLOR = null;
 
-    public static final Map<String, Color> COLORS = Map.of(
-            "base1", Color.decode("#221f22"),
-            "base2", Color.decode("#2d2a2e"),
-            "red", Color.decode("#ff6188"),
-            "purple", Color.decode("#ab9df2"),
-            "orange", Color.decode("#fc9867"),
-            "yellow", Color.decode("#ffd866"),
-            "text", Color.decode("#fcfcfa"),
-            "blue", Color.decode("#78dce8"),
-            "green", Color.decode("#a9dc76"),
-            "base0", Color.decode("#19181a")
-    );
-    //    "red",
-    //    "orange",
-    //    "yellow",
-    //    "green"
-    public static Color[] PROGRESS_COLORS = {
-            Color.decode("#ff6188"),
-            Color.decode("#fc9867"),
-            Color.decode("#ffd866"),
-            Color.decode("#a9dc76")
-    };
+    public static Map<String, Color> COLORS = new HashMap<>();
+    public static Color[] PROGRESS_COLORS = null;
+
+    public static void loadConfig(ModConfig config) {
+        COLORS.clear();
+        config.color.colorVariables.forEach((s, s2) -> COLORS.put(s, Color.decode(s2)));
+
+        final String[] progressColors = config.color.progressColors;
+        if (progressColors.length == 0) {
+            throw new RuntimeException("Progress Colors length is 0");
+        }
+        PROGRESS_COLORS = new Color[progressColors.length];
+        for (int i = 0; i < progressColors.length; i++) {
+            PROGRESS_COLORS[i] = parseColor(progressColors[i]);
+        }
+
+        BACKGROUND_COLOR = parseColor(config.color.backgroundColor);
+        PROGRESS_LANE_COLOR = parseColor(config.color.progressTrackColor);
+        TEXT_COLOR = parseColor(config.color.foregroundColor);
+    }
 
     public static Color parseColor(String str) {
         if (COLORS.containsKey(str.toLowerCase())) {
