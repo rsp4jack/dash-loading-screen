@@ -8,7 +8,7 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 version = "${project.mod_patch_version}+${gitVersion()}"
-archivesBaseName = "${project.archives_base_name}-${project.version}"
+archivesBaseName = project.archives_base_name
 group = project.maven_group
 
 repositories {
