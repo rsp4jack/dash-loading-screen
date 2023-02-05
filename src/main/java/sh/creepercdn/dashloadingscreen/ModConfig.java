@@ -12,6 +12,18 @@ public class ModConfig implements ConfigData {
     boolean debug = false;
     int progressBarHeight = 2;
 
+    // %version: Minecraft version
+    @ConfigEntry.Gui.Tooltip
+    String[] funFacts = {
+            "Minecraft %version",
+            "Jam a Man of Fortune, and J must seek my Fortune -- Henry Averies 1994",
+            "Never gonna give you up, never gonna let you down",
+            "Never gonna run around and desert you",
+            "Together forever and never to part, together forever we two",
+            "And don't you know I would move heaven and earth, to be together forever with you",
+            ":pineapple:"
+    };
+
     @ConfigEntry.Gui.CollapsibleObject
     InnerColorConfig color = new InnerColorConfig();
     @ConfigEntry.Gui.CollapsibleObject

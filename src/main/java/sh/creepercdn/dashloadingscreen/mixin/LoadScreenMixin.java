@@ -31,6 +31,7 @@ public abstract class LoadScreenMixin extends Overlay {
     @Inject(at = @At("RETURN"), method = "<init>")
     protected void onInitClass(MinecraftClient client, ResourceReload monitor, Consumer exceptionHandler, boolean reloading, CallbackInfo ci) {
         dash.init(client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
+        dash.updateConfig();
     }
 
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)

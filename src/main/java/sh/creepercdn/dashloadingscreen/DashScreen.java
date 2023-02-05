@@ -1,6 +1,6 @@
 package sh.creepercdn.dashloadingscreen;
 
-// https://github.com/TeamQuantumFusion/DashLoader/blob/fabric-1.18/src/main/java/dev/quantumfusion/dashloader/client/DashScreen.java
+// https://github.com/TeamQuantumFusion/DashLoader/blob/fabric-1.18/src/main/java/dev/quantumfusion/dashloader/client/DashCachingScreen.java
 // LGPLv3
 
 import com.google.gson.JsonElement;
@@ -34,7 +34,7 @@ public class DashScreen extends Screen {
     private final UIDrawer drawer = new UIDrawer();
     private final List<Line> lines = new ArrayList<>();
     private final List<Pair<Color, Integer>> lineColorSelectors = new ArrayList<>();
-    private final String fact = String.format("Minecraft %s", MinecraftClient.getInstance().getGame().getVersion().getName());
+    private String fact;
     public Status STATUS = Status.IDLE;
     public double progress = 0.0;
     public String task = "Loading";
@@ -81,7 +81,7 @@ public class DashScreen extends Screen {
         return tr;
     }
 
-    private void updateConfig() {
+    public void updateConfig() {
         final ModConfig config = DashLoadingScreenMod.config;
         ColorUtils.loadConfig(config);
 
@@ -90,6 +90,9 @@ public class DashScreen extends Screen {
         this.progressBarHeight = config.progressBarHeight;
         this.lineSpeedDifference = config.line.lineSpeedDifference;
         int lineAmount = config.line.lineAmount;
+
+        this.fact = config.funFacts[random.nextInt(config.funFacts.length)]
+                .replace("%version", MinecraftClient.getInstance().getGame().getVersion().getName());
 
         // lines
         this.weight = 0;
